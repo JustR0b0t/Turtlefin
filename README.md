@@ -1,60 +1,64 @@
-<h1 align="center">Jellyfin Android TV</h1>
-<h3 align="center">Part of the <a href="https://jellyfin.org">Jellyfin Project</a></h3>
+<h1 align="center">Turtlefin Android TV</h1>
+<h3 align="center">Unofficial fork of the <a href="https://jellyfin.org">Jellyfin Project</a></h3>
 
 ---
 
 <p align="center">
-<img alt="Logo banner" src="https://raw.githubusercontent.com/jellyfin/jellyfin-ux/master/branding/SVG/banner-logo-solid.svg?sanitize=true"/>
+<img alt="Logo banner" src="https://raw.githubusercontent.com/JustR0b0t/Turtlefin/refs/heads/main/Artwork/Turtlefin%20Banner%20Logo%20Solid.svg"/>
 <br/><br/>
-<a href="https://github.com/jellyfin/jellyfin-androidtv">
-<img alt="GPL 2.0 License" src="https://img.shields.io/github/license/jellyfin/jellyfin-androidtv.svg"/>
-</a>
-<a href="https://github.com/jellyfin/jellyfin-androidtv/releases">
-<img alt="Current Release" src="https://img.shields.io/github/release/jellyfin/jellyfin-androidtv.svg"/>
-</a>
-<a href="https://translate.jellyfin.org/projects/jellyfin-android/jellyfin-androidtv/">
-<img alt="Translation Status" src="https://translate.jellyfin.org/widgets/jellyfin-android/-/jellyfin-androidtv/svg-badge.svg"/>
-</a>
-<br/>
-<a href="https://opencollective.com/jellyfin">
-<img alt="Donate" src="https://img.shields.io/opencollective/all/jellyfin.svg?label=backers"/>
-</a>
-<a href="https://features.jellyfin.org">
-<img alt="Feature Requests" src="https://img.shields.io/badge/fider-vote%20on%20features-success.svg"/>
-</a>
-<a href="https://matrix.to/#/+jellyfin:matrix.org">
-<img alt="Chat on Matrix" src="https://img.shields.io/matrix/jellyfin:matrix.org.svg?logo=matrix"/>
-</a>
-<a href="https://www.reddit.com/r/jellyfin">
-<img alt="Join our Subreddit" src="https://img.shields.io/badge/reddit-r%2Fjellyfin-%23FF5700.svg"/>
-</a>
-<br/>
-<a href="https://play.google.com/store/apps/details?id=app.turtlefin.androidtv">
-<img width="153" alt="Jellyfin on Google Play" src="https://jellyfin.org/images/store-icons/google-play.png"/>
-</a>
-<a href="https://www.amazon.com/gp/aw/d/B07TX7Z725">
-<img width="153" alt="Jellyfin on Amazon Appstore" src="https://jellyfin.org/images/store-icons/amazon.png"/>
-</a>
-<a href="https://f-droid.org/en/packages/app.turtlefin.androidtv/">
-<img width="153" alt="Jellyfin on F-Droid" src="https://jellyfin.org/images/store-icons/fdroid.png"/>
-</a>
-<br/>
-<a href="https://repo.jellyfin.org/releases/client/androidtv/">Download archive</a>
-</p>
 
-Jellyfin Android TV is a Jellyfin client for Android TV, Nvidia Shield, and Amazon Fire TV devices.
-We welcome all contributions and pull requests! If you have a larger feature in mind please open an
-issue so we can discuss the implementation before you start. 
 
-## Translating
+TurtleFin Android TV is a for of the Jellyfin client for Android TV, Nvidia Shield, and Amazon Fire TV devices.
+I made a few changes to the app to customize it to my own liking. 
 
-Translations can be improved very easily from our
-[Weblate](https://translate.jellyfin.org/projects/jellyfin-android/jellyfin-androidtv) instance.
-Look through the following graphic to see if your native language could use some work!
+**Do not expect any further updates.**
 
-<a href="https://translate.jellyfin.org/engage/jellyfin-android/">
-<img alt="Detailed Translation Status" src="https://translate.jellyfin.org/widgets/jellyfin-android/-/jellyfin-androidtv/multi-auto.svg"/>
-</a>
+
+## Changes
+
+ - The OSD is not shown if Pause, Rewind or Fast Forward is pressed. 
+ - The Playback Speed can now be changed to 2.5 or 3
+ - Changed the Artwork to comply with the Branding Guidelines
+
+**OSD changes:**
+*CustomPlaybackOverlayFragment.java*
+
+       private View.OnKeyListener keyListener = new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+    
+                    // Only show overlay if certain buttons are not pressed
+                    if (keyCode != KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
+                            && keyCode != KeyEvent.KEYCODE_MEDIA_REWIND
+                            && keyCode != KeyEvent.KEYCODE_MEDIA_FAST_FORWARD) {
+                        if (!mGuideVisible) {
+                            leanbackOverlayFragment.setShouldShowOverlay(true); 
+                        }else {
+                        leanbackOverlayFragment.setShouldShowOverlay(false);
+                        leanbackOverlayFragment.hideOverlay();
+                        }
+                    }else{
+                        leanbackOverlayFragment.setShouldShowOverlay(false);
+                        leanbackOverlayFragment.hideOverlay();
+                    }
+
+**Playback Speed Changes:**
+*VideoSpeedController.kt*
+
+    enum class SpeedSteps(val speed: Float) {
+    // Use named parameter so detekt knows these aren't magic values
+    SPEED_0_25(speed = 0.25f),
+    SPEED_0_50(speed = 0.5f),
+    SPEED_0_75(speed = 0.75f),
+    SPEED_1_00(speed = 1.0f),
+    SPEED_1_25(speed = 1.25f),
+    SPEED_1_50(speed = 1.50f),
+    SPEED_1_75(speed = 1.75f),
+    SPEED_2_00(speed = 2.0f),
+    SPEED_2_50(speed = 2.5f),
+    SPEED_3_00(speed = 3.0f),
+    }
 
 ## Build Process
 
@@ -67,8 +71,8 @@ Look through the following graphic to see if your native language could use some
 1. Clone or download this repository
 
    ```sh
-   git clone https://github.com/jellyfin/jellyfin-androidtv.git
-   cd jellyfin-androidtv
+   git clone https://github.com/JustR0b0t/Turtlefin.git
+   cd Turtlefin
    ```
 
 2. Open the project in Android Studio and run it from there or build an APK directly through Gradle:
@@ -87,3 +91,4 @@ Look through the following graphic to see if your native language could use some
    ```
 
 *You can also replace the "Debug" with "Release" to get an optimized release binary.*
+
