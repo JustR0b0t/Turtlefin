@@ -8,8 +8,9 @@
 <br/><br/>
 
 
-TurtleFin Android TV is a for of the Jellyfin client for Android TV, Nvidia Shield, and Amazon Fire TV devices.
+TurtleFin Android TV is a fork of the Jellyfin client for Android TV, Nvidia Shield, and Amazon Fire TV devices.
 I made a few changes to the app to customize it to my own liking. 
+It is in no way affiliated with the official Jellyfin Project.
 
 **Do not expect any further updates.**
 
